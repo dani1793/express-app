@@ -1,0 +1,14 @@
+name: Label addition to PR
+on: 
+  pull_request:
+    types: [labeled]
+
+jobs:
+  Label-added-to-PR:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - name: debug
+        run: |
+          echo "testing ${{ toJson(github.event.pull_request.labels) }} ... "
+          echo "${{ toJson(github.event.pull_request.labels.*.name) }}"
