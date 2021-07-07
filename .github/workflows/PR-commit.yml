@@ -9,7 +9,8 @@ jobs:
           echo "${{toJson(github.event.commits.*.message)}}"
   Deploy-If-Valid-Commit:
     runs-on: ubuntu-latest
-    if: contains(github.event.commits.*.message,'Deploy to reindeer test namespace')
+    if: contains(github.event.commits.*.message,'[Instruct GHA] Deploy to reindeer test namespace')
     steps:
       - run: |
           echo "Deploying Changes to reindeer test namespace"
+          
