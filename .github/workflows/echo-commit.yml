@@ -25,7 +25,7 @@ jobs:
       - name: "[Pull Request] Get branch Labels"
         if: github.event_name == 'pull_request'
         id: pr_get_labels
-        run: echo ::set-output name=pr_labels::$([ -z "${{toJSON(github.event.pull_request.labels.*.name}}"])
+        run: echo ::set-output name=pr_labels::$(echo "${{toJSON(github.event.pull_request.labels.*.name}}")
 
   
     # For **Pull Request** events this will resolve to something like "$( [ -z "commit message pr" ] && echo "" || echo "commit message pr" )" which then resolves to just "commit message pr"  
