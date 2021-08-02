@@ -57,7 +57,7 @@ jobs:
   skippable_job:
     name: Skippable Job
     runs-on: ubuntu-latest 
-    if: "!contains(needs.pre_ci.outputs.commit_message, '[Instruct GHA] Deploy to reindeer test namespace')"
+    if: "contains(needs.pre_ci.outputs.commit_message, '[Instruct GHA] Deploy to reindeer test namespace')"
     needs: pre_ci
     steps:
       - name: Checkout Project
