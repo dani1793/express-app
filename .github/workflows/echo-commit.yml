@@ -1,11 +1,10 @@
 name: Commit message echo
 
-
 on:
   pull_request:
 
 jobs:
-  pre_ci:
+  extract_pr_metadata:
     name: Extract PR metadata
     runs-on: ubuntu-latest
     steps:
@@ -36,7 +35,7 @@ jobs:
   echo_pr_metadata:
     name: Echo PR Metadata
     runs-on: ubuntu-latest
-    needs: pre_ci
+    needs: extract_pr_metadata
     steps:
       - name: Checkout Project
         uses: actions/checkout@v2
@@ -44,16 +43,16 @@ jobs:
         # If this job doesn't get skipped you'll see the commit message appear here, it's just a debugging this
         # so be sure to remove it for your actual workflow
       - name: Log PR commit message
-        run: echo "${{ needs.pre_ci.outputs.pr_commit_message }}"
+        run: echo "${{ needs.extract_pr_metadata.outputs.pr_commit_message }}"
       - name: Log PR labels
-        run: echo "${{ needs.pre_ci.outputs.pr_labels }}"
+        run: echo "${{ needs.extract_pr_metadata.outputs.pr_labels }}"
 
   # This job can be skipped by including [skip ci] in the commit message
   skippable_job:
     name: Skippable Job
     runs-on: ubuntu-latest 
-    if: "contains(needs.pre_ci.outputs.pr_labels, 'reindeer-testing-ns') && contains(needs.pre_ci.outputs.pr_commit_message, '[Instruct GHA] Deploy to reindeer test namespace')"
-    needs: pre_ci
+    if: "contains(needs.extract_pr_metadata.outputs.pr_labels, 'reindeer-testing-ns') && contains(needs.extract_pr_metadata.outputs.pr_commit_message, '[Instruct GHA] Deploy to reindeer test namespace')"
+    needs: extract_pr_metadata
     steps:
       - name: Checkout Project
         uses: actions/checkout@v2
@@ -61,7 +60,7 @@ jobs:
         # If this job doesn't get skipped you'll see the commit message appear here, it's just a debugging this
         # so be sure to remove it for your actual workflow
       - name: Log commit message
-        run: echo "${{ needs.pre_ci.outputs.pr_commit_message }}"
+        run: echo "${{ needs.extract_pr_metadata.outputs.pr_commit_message }}"
 
 
 
