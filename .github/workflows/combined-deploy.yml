@@ -3,7 +3,6 @@ name: Deploy to reindeer testing namespace
 on:
   pull_request:
     types: [labeled]
-  push:
 
 jobs:
   log-response:
