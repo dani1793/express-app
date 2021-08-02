@@ -10,7 +10,7 @@ jobs:
     name: log event
     runs-on: ubuntu-latest
     steps:
-      - run: echo "${{fromJSON(github.event)}}"
+      - run: echo "${{toJSON(github.event)}}"
   check-reindeer-test-ns-deployment:
     name: Check pull request label and commit message for reindeer testing namespace deployment
     runs-on: ubuntu-18.04
