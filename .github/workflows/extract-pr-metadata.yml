@@ -46,3 +46,4 @@ jobs:
         run: echo "${{ needs.extract_pr_metadata.outputs.pr_commit_message }}"
       - name: Log PR labels
         run: echo "${{ needs.extract_pr_metadata.outputs.pr_labels }}"
+        
