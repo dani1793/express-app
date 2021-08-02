@@ -1,4 +1,4 @@
-name: Commit message echo
+name: Extract PR Metadata
 
 on:
   pull_request:
@@ -46,18 +46,6 @@ jobs:
         run: echo "${{ needs.extract_pr_metadata.outputs.pr_commit_message }}"
       - name: Log PR labels
         run: echo "${{ needs.extract_pr_metadata.outputs.pr_labels }}"
-
-  # This job checks if the label is present in the PR and if the commit message contains '[Instruct GHA] Deploy to reindeer test namespace'
-  check-reindeer-test-ns-deployment:
-    name: Check reindeer test namespace deployment conditions
-    runs-on: ubuntu-latest 
-    if: "contains(needs.extract_pr_metadata.outputs.pr_labels, 'reindeer-testing-ns') && contains(needs.extract_pr_metadata.outputs.pr_commit_message, '[Instruct GHA] Deploy to reindeer test namespace')"
-    needs: extract_pr_metadata
-    steps:
-      - name: Checkout Project
-        uses: actions/checkout@v2
-      - name: Log check passed
-        run: echo "The check for reindeer test namespace deployment passed"
 
 
 
