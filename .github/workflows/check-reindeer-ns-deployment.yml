@@ -1,4 +1,4 @@
-name: Extract PR metadata
+name: Check Reindeer Namespace Deployment
 
 on:
   pull_request:
@@ -46,7 +46,7 @@ jobs:
         run: echo "${{ needs.extract_pr_metadata.outputs.pr_commit_message }}"
       - name: Log PR labels
         run: echo "${{ needs.extract_pr_metadata.outputs.pr_labels }}"
-        
+
   # This job checks if the label is present in the PR and if the commit message contains '[Instruct GHA] Deploy to reindeer test namespace'
   check-reindeer-test-ns-deployment:
     name: Check reindeer test namespace deployment conditions
