@@ -58,3 +58,4 @@ jobs:
         uses: actions/checkout@v2
       - name: Log check passed
         run: echo "The check for reindeer test namespace deployment passed"
+        
