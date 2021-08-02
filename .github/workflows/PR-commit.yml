@@ -1,0 +1,16 @@
+name: GitHub Actions Demo
+on: [push]
+jobs:
+  Commit-debug:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Display commits message of push"
+          echo "${{toJson(github.event.commits.*.message)}}"
+  Deploy-If-Valid-Commit:
+    runs-on: ubuntu-latest
+    if: contains(github.event.commits.*.message,'[Instruct GHA] Deploy to reindeer test namespace')
+    steps:
+      - run: |
+          echo "Deploying Changes to reindeer test namespace"
+          

@@ -1,0 +1,18 @@
+name: Label addition to PR
+on: 
+  pull_request:
+    types: [labeled]
+
+jobs:
+  Print-all-labels-for-PR:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - name: debug
+        run: |
+          echo "Listing PR labels: ${{ toJson(github.event.pull_request.labels.*.name) }}"      
+  Deploy-to-reindeer-testing-namespace:
+    runs-on: ubuntu-latest
+    if: contains(github.event.pull_request.labels.*.name, 'reindeer-testing-ns')
+    steps:
+      - run: echo "🎉 The deployment job for reindeer-testing started because labels contain name 'reindeer-testing-ns'"
