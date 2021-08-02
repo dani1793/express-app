@@ -47,20 +47,17 @@ jobs:
       - name: Log PR labels
         run: echo "${{ needs.extract_pr_metadata.outputs.pr_labels }}"
 
-  # This job can be skipped by including [skip ci] in the commit message
-  skippable_job:
-    name: Skippable Job
+  # This job checks if the label is present in the PR and if the commit message contains '[Instruct GHA] Deploy to reindeer test namespace'
+  check-reindeer-test-ns-deployment:
+    name: Check reindeer test namespace deployment conditions
     runs-on: ubuntu-latest 
     if: "contains(needs.extract_pr_metadata.outputs.pr_labels, 'reindeer-testing-ns') && contains(needs.extract_pr_metadata.outputs.pr_commit_message, '[Instruct GHA] Deploy to reindeer test namespace')"
     needs: extract_pr_metadata
     steps:
       - name: Checkout Project
         uses: actions/checkout@v2
-
-        # If this job doesn't get skipped you'll see the commit message appear here, it's just a debugging this
-        # so be sure to remove it for your actual workflow
-      - name: Log commit message
-        run: echo "${{ needs.extract_pr_metadata.outputs.pr_commit_message }}"
+      - name: Log check passed
+        run: echo "The check for reindeer test namespace deployment passed"
 
 
 
