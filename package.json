@@ -14,7 +14,7 @@
     "pug": "2.0.0-beta11",
     "body-parser": "^1.18.3",
     "datasift": "^0.3.1",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-nodemon": "^2.2.1",
     "init": "^0.1.2",
     "mongo": "^0.1.0",
